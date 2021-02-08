@@ -44,7 +44,33 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+## ไกด์ให้
+```
+1. ตัวที่ต้องติดตั้ง MySQL ให้ไปที่ https://dev.mysql.com/downloads/workbench/
+2. ก่อนรัน วิธีที่ง่ายที่สุดให้เปิด Xampp และ start ที่ MySQL ไม่งั้นมันจะขึ้น Error ไม่สามารถเชื่อมกับ database ได้ แต่จะใช้ docker ก็ทำได้แต่ยากกว่า (port ที่ mysql ทำงาน คือ 3306)
+3. password แนะนำให้ปล่อยว่างไว้ เช่น password: ''
+4. สามารถทดสอบการ get post ซึ่งเป็นการจัดการหลังบ้าน ทำได้โดยใช้โปรแกรม Postman ไปโหลดได้ที่ https://www.postman.com/downloads/
+5.การทำงานของ Nestjs คือ หลักๆจะต้องเขียน service ขึ้นมา และตัว conttroller จะทำหน้าที่เรียก service มาใช้ ซึ่งสั่งว่า get ให้ทำอะไร หรือ post ทำอะไร 
+  - ส่วนตัว module ก็จะเกิดจาก service, controller และ class ของ entity มาประกอบกัน
+  - ส่วน entity คือ โครงสร้างของตารางว่าเราจะให้มีอะไร
+@Post()
+    create(@Body() createUserDto:CreateUserDto): Promise<User> {
+        return this.usersService.create(createUserDto);
+    }
+    อธิบาย: มันจะเป็นการที่ใช้ไฟล์ create-user.dto.ts มาสร้างเป็น User ที่เก็บเนี่ย 1 คน ซึ่งจะตาม user.model.ts ใน file (Promise เป็นการเรียก class User)
+    ส่วนฟังก์ชันต่างๆ เช่น
+    findall() คือ แสดงข้อมูลทั้งหมด
+    findone() คือ แสดงแค่คนเดียว
+    remove() คือ ลบ user
+    
+```
+## ใช้ Postman
+```
+  การใช้ postman เราจะใช้ localhost:3000 เพราะ await app.listen(3000); ใน main.ts จะใช้ port อื่นก็ได้ตามใจเลย
+  การ Post เราก็ใช้ localhost:3000/users
+  การ Get เราก็ใช้ localhost:3000/users/{id} เช่น localhost:3000/users/1
 
+```
 ## Test
 
 ```bash
@@ -56,6 +82,19 @@ $ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
+```
+## ติดตั้ง Package
+
+```bash
+# กรณี Error ที่ rxjs ให้ติดตั้งตัวนี้
+$ npm i rxjs
+
+# ติดตั้งpakage sequelize typescript 
+$ npm install --save sequelize sequelize-typescript mysql2
+$ npm install --save-dev @types/sequelize
+# ถ้า Error ที่ @nestjs/sequelize ให้ติดตั้งตัวนี้
+$ npm i @nestjs/sequelize
+
 ```
 
 ## Support
