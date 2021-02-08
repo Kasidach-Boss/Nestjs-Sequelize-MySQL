@@ -1,0 +1,16 @@
+version: '2'
+services:
+  db:
+    container_name: test
+    restart: unless-stopped
+    image: mysql:5.7
+    command: --innodb_use_native_aio=0
+    environment:
+      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_DATABASE: 'test'
+    ports: 
+      - 6612:3306
+    volumes:
+      - ./db:/var/lib/mysql
+    
+    
